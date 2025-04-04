@@ -1,0 +1,30 @@
+import { CacheForOption, FormDataConvertible, LinkPrefetchOption, Method, PendingVisit, PreserveStateOption, Progress } from '@inertiajs/core';
+import { DefineComponent } from 'vue';
+export interface InertiaLinkProps {
+    as?: string;
+    data?: Record<string, FormDataConvertible>;
+    href: string;
+    method?: Method;
+    headers?: Record<string, string>;
+    onClick?: (event: MouseEvent) => void;
+    preserveScroll?: PreserveStateOption;
+    preserveState?: PreserveStateOption;
+    replace?: boolean;
+    only?: string[];
+    except?: string[];
+    onCancelToken?: (cancelToken: import('axios').CancelTokenSource) => void;
+    onBefore?: () => void;
+    onStart?: (visit: PendingVisit) => void;
+    onProgress?: (progress: Progress) => void;
+    onFinish?: (visit: PendingVisit) => void;
+    onCancel?: () => void;
+    onSuccess?: () => void;
+    onError?: () => void;
+    queryStringArrayFormat?: 'brackets' | 'indices';
+    async?: boolean;
+    prefetch?: boolean | LinkPrefetchOption | LinkPrefetchOption[];
+    cacheFor?: CacheForOption | CacheForOption[];
+}
+type InertiaLink = DefineComponent<InertiaLinkProps>;
+declare const Link: InertiaLink;
+export default Link;

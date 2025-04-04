@@ -1,0 +1,32 @@
+import { FormDataConvertible, Method, Progress, VisitOptions } from '@inertiajs/core';
+type FormDataType = Record<string, FormDataConvertible>;
+type FormOptions = Omit<VisitOptions, 'data'>;
+export interface InertiaFormProps<TForm extends FormDataType> {
+    isDirty: boolean;
+    errors: Partial<Record<keyof TForm, string>>;
+    hasErrors: boolean;
+    processing: boolean;
+    progress: Progress | null;
+    wasSuccessful: boolean;
+    recentlySuccessful: boolean;
+    data(): TForm;
+    transform(callback: (data: TForm) => object): this;
+    defaults(): this;
+    defaults(field: keyof TForm, value: FormDataConvertible): this;
+    defaults(fields: Partial<TForm>): this;
+    reset(...fields: (keyof TForm)[]): this;
+    clearErrors(...fields: (keyof TForm)[]): this;
+    setError(field: keyof TForm, value: string): this;
+    setError(errors: Record<keyof TForm, string>): this;
+    submit(method: Method, url: string, options?: FormOptions): void;
+    get(url: string, options?: FormOptions): void;
+    post(url: string, options?: FormOptions): void;
+    put(url: string, options?: FormOptions): void;
+    patch(url: string, options?: FormOptions): void;
+    delete(url: string, options?: FormOptions): void;
+    cancel(): void;
+}
+export type InertiaForm<TForm extends FormDataType> = TForm & InertiaFormProps<TForm>;
+export default function useForm<TForm extends FormDataType>(data: TForm | (() => TForm)): InertiaForm<TForm>;
+export default function useForm<TForm extends FormDataType>(rememberKey: string, data: TForm | (() => TForm)): InertiaForm<TForm>;
+export {};
